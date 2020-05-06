@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -22,10 +24,18 @@
         <main>
             <article>
                 <form method="post" action="save.php">
-                    <label>Enter e-mail address
-                        <input type="email" name="email">
+                    <label>Enter e-mail address:
+                        <input type="email" name="email" <?= isset($_SESSION['given_email']) ? 'value="' . $_SESSION['given_email'] . '"' : '' ?>>
                     </label>
                     <input type="submit" value="Sign up!">
+
+                    <?php
+                        if (isset($_SESSION['given_email'])) {
+                            echo '<p>Email address is incorrect.</p>';
+                            unset($_SESSION['given_email']);
+                        }
+                    ?>
+
                 </form>
             </article>
         </main>
